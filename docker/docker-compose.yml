@@ -12,7 +12,9 @@ services:
       - mongo_db:/data/db
   # Node API
   api:
-    build: .
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
     ports:
       - 3000:3000
     volumes:
