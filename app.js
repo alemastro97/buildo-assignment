@@ -7,15 +7,14 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Initialize DB
-require('./initDB')();
+// Initialize MongoDB and connection
+require('./db')();
 
-const ProductRoute = require('./Routes/Product.route');
-app.use('/products', ProductRoute);
+const ConfigurationRoutes = require('./routes/Configuration.route');
+app.use('/configuration', ConfigurationRoutes);
 
 //404 handler and pass to error handler
 app.use((req, res, next) => {
-  // You can use the above code if your not using the http-errors module
   next(createError(404, 'Not found'));
 });
 
