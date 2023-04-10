@@ -29,13 +29,13 @@ module.exports = () => {
       return session({
         secret: 's0m3$3Cret$h0lyC0d3&$',
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
       });
     },
     authenticate: function () {
       return passport.authenticate('jwt', {
-        session: false
-    });
+        session: false,
+      });
     },
   };
 };
