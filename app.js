@@ -29,9 +29,11 @@ app.use(notFound);
 app.use(error);
 
 /** Get port on which the server runs */
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 /** Start server */
 app.listen(PORT, () => {
   console.log('Server started on port ' + PORT + '...');
 });
+
+module.exports = app

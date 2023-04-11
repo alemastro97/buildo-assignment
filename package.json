@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "mocha test/*.js"
   },
   "author": "Me",
   "license": "ISC",
@@ -23,6 +24,11 @@
     "passport-local-mongoose": "^8.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.2.0",
+    "mongodb-memory-server": "^8.12.2",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.3.3"
   }
 }

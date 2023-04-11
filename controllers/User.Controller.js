@@ -4,7 +4,6 @@ const User = require('../models/User.model');
 const jwt = require('jwt-simple');
 
 const login = (req, res) => {
-  console.log('Logged In');
   User.findOne({ username: req.body.username }, (err, user) => {
     if (err) {
       console.log('Error Happened In auth /token Route');
