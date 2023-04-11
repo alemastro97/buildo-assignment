@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Joi = require('joi')
+
 const ConfigurationElementJoi = Joi.object({
   name: Joi.string().required(),
   host: Joi.string().required(),

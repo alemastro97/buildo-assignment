@@ -1,20 +1,9 @@
-// index.js
-
-const express = require('express'); // (npm install --save express)
 const request = require('supertest');
 const {expect} = require('chai');
-const app = require('../app'); // your Express app
-
-// const expect = chai.expect;
-
-
+const app = require('../app');
 
 describe('Full registration', function () {
-  //   var app;
-
-  // Called once before any of the tests in this block begin.
   before(function (done) {
-    // app = createApp();
     app.listen(function (err) {
       if (err) {
         return done(err);
@@ -33,8 +22,8 @@ describe('Full registration', function () {
         if (err) {
           return done(err);
         }
-        // expect(res.body).to.have.property('_id');// TODO: uncomment
-        // expect(res.body).to.have.property('configurations');// TODO: uncomment
+        expect(res.body).to.have.property('_id');
+        expect(res.body).to.have.property('configurations');
         done();
       });
   });
@@ -42,11 +31,8 @@ describe('Full registration', function () {
 
 
 describe('Login', function () {
-  //   var app;
 
-  // Called once before any of the tests in this block begin.
   before(function (done) {
-    // app = createApp();
     app.listen(function (err) {
       if (err) {
         return done(err);
@@ -75,7 +61,6 @@ describe('Login + Creation of configuration + Deletion existence', function () {
     let token;
 
   before(function (done) {
-    // app = createApp();
     app.listen(function (err) {
       if (err) {
         return done(err);
@@ -112,7 +97,6 @@ describe('Login + Creation of configuration + Deletion existence', function () {
         database_url: 'http://localdb',
         logging_level: 'debug',
       })
-    //   .expect('Content-Type', /json/)
       .expect(200, function (err, res) {
         if (err) {
           return done(err);
@@ -183,7 +167,6 @@ describe('Login + Creation of configuration + Update configuration + Get configu
         database_url: 'http://localdb',
         logging_level: 'debug',
       })
-    //   .expect('Content-Type', /json/)
       .expect(200, function (err, res) {
         if (err) {
           return done(err);
@@ -209,7 +192,6 @@ describe('Login + Creation of configuration + Update configuration + Get configu
         port: 3002,
         new_key: 'testing',
       })
-    //   .expect('Content-Type', /json/)
       .expect(200, function (err, res) {
         if (err) {
           return done(err);
@@ -223,7 +205,6 @@ describe('Login + Creation of configuration + Update configuration + Get configu
       .get('/configuration/TestingService')
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`)
-    //   .expect('Content-Type', /json/)
       .expect(200, function (err, res) {
         if (err) {
           return done(err);
@@ -261,7 +242,6 @@ describe('Login + Creation of two configuration + Update configuration with the 
     let token;
 
   before(function (done) {
-    // app = createApp();
     app.listen(function (err) {
       if (err) {
         return done(err);
@@ -298,7 +278,6 @@ describe('Login + Creation of two configuration + Update configuration with the 
         database_url: 'http://localdb',
         logging_level: 'debug',
       })
-    //   .expect('Content-Type', /json/)
       .expect(200, function (err, res) {
         if (err) {
           return done(err);
@@ -325,7 +304,6 @@ describe('Login + Creation of two configuration + Update configuration with the 
         database_url: 'http://localdb',
         logging_level: 'debug',
       })
-    //   .expect('Content-Type', /json/)
       .expect(200, function (err, res) {
         if (err) {
           return done(err);

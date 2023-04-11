@@ -1,9 +1,8 @@
-const Joi = require('joi');
-
 const {ConfigurationElementJoi} = require('../models/Configuration.model')
-// Middleware to validate user input
 
+// Middleware to validate user input
 const validateConfiguration = (req, res, next) => {
+  /** Validate the request body through Joi */
   const { error, _ } = ConfigurationElementJoi.validate(req.body);
 
   if (error) {

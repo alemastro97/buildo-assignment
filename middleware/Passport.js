@@ -1,13 +1,16 @@
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const User = require('../models/User.model');
-// const cfg = require("../config.js");
+const { secret, options } = require("../config/auth.json");
+
 const session = require('express-session');
 
 const ExtractJwt = passportJWT.ExtractJwt;
 const Strategy = passportJWT.Strategy;
+
+/*  parameters needed to configure the `Strategy` for passport-jwt authentication. */
 const params = {
-  secretOrKey: 's0m3$3Cret$h0lyC0d3&$',
+  secretOrKey: secret,
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken('jwt'),
 };
 
@@ -27,15 +30,13 @@ module.exports = () => {
   return {
     initialize: function () {
       return session({
-        secret: 's0m3$3Cret$h0lyC0d3&$',
+        secret,
         resave: false,
         saveUninitialized: false,
       });
     },
     authenticate: function () {
-      return passport.authenticate('jwt', {
-        session: false,
-      });
+      return passport.authenticate('jwt', options);
     },
   };
 };
