@@ -1,14 +1,10 @@
 const Joi = require('joi');
 
-const schema = Joi.object({
-  name: Joi.string().required(),
-  price: Joi.number().integer().required(),
-});
-
+const {ConfigurationElementJoi} = require('../models/Configuration.model')
 // Middleware to validate user input
 
 const validateConfiguration = (req, res, next) => {
-  const { error, _ } = schema.validate(req.body);
+  const { error, _ } = ConfigurationElementJoi.validate(req.body);
 
   if (error) {
     // Return 400 Bad Request if validation fails
