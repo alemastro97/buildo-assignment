@@ -1,6 +1,16 @@
 # Buildo Assignment
-this project has been dockerized so that it can be easily installed on any system that only requires docker
 
+## Prerequisites
+This project works with docker, in case you don't have docker and the compose plugin installed, I refer you to the guide:
+- [Windows](https://docs.docker.com/desktop/install/windows-install/)
+- [Linux](https://docs.docker.com/engine/install/ubuntu/)
+- [Mac](https://docs.docker.com/desktop/install/mac-install/)
+
+## Installation
+Clone the git repository:
+```bash
+git clone git@github.com:alemastro97/buildo-assignment.git
+```
 
 ## Technologies involved
 
@@ -14,32 +24,46 @@ this project has been dockerized so that it can be easily installed on any syste
 
 - <a href="https://docs.docker.com/compose/">**Docker-compose**</a>:  is a tool for defining and running multi-container Docker applications.
 
+- <a href="https://www.passportjs.org/">**Passport.js**</a>: is authentication middleware for Node.js.
+
 ## Project Structure
 ``` bash
 .
 ├── app.js
+├── auth.js
 ├── config
 ├── controllers
-│   └── Configuration.Controller.js
+│   ├── Configuration.Controller.js
+│   └── User.Controller.js
 ├── db.js
 ├── docker
 │   ├── docker-compose.yml
 │   └── Dockerfile
 ├── middleware
-│   └── Configuration.validator.js
+│   ├── Configuration.validator.js
+│   ├── ErrorHandler.js
+│   └── Passport.js
 ├── models
-│   └── Configuration.model.js
+│   ├── Configuration.model.js
+│   └── User.model.js
 ├── package.json
 ├── package-lock.json
 ├── README.md
-└── routes
-    └── Configuration.route.js
+├── routes
+│   ├── Auth.route.js
+│   └── Configuration.route.js
+└── test
+    └── index.js
 ```
 - **app.js**: This is the main file that initializes the Express application and sets up the middleware, routes, and other configurations.
 
 </br>
 
-- **package.json**: This file contains metadata about the application and the list of dependencies required by the application.
+- **auth.js**: This is the configuration file to setup everything concern the passport library used to check the authentication
+
+</br>
+
+- **config/**: This folder contains configuration files for the application such as environment variables, database connection strings, etc. This folder is usually separated from other code to keep configuration separate from application code and to make it easy to change configuration settings without modifying the code.
 
 </br>
 
@@ -47,7 +71,23 @@ this project has been dockerized so that it can be easily installed on any syste
 
 </br>
 
+- **db.js**: This is the configuration file to setup everything concern the mongodb database.
+
+</br>
+
+- **docker**: this folder contains all the configuration files to be able to run the project locally via docker
+
+</br>
+
+- **middleware/**: This folder contains the middleware functions that can be used to modify the request and response objects before and after the controller
+
+</br>
+
 - **models/**: This folder contains the code that defines the data schema and interacts with the database. Each file in this folder corresponds to a different table or collection in the database.
+
+</br>
+
+- **package.json**: This file contains metadata about the application and the list of dependencies required by the application.
 
 </br>
 
@@ -55,22 +95,21 @@ this project has been dockerized so that it can be easily installed on any syste
 
 </br>
 
+- **test/**: Some unit tests created with <a href="https://mochajs.org/">Mocha</a> + <a href="https://www.chaijs.com/">Chai</a> following this <a href="https://alexanderpaterson.com/posts/how-to-start-unit-testing-your-express-apps">tutorial</a>
 
-- **middleware/**: This folder contains the middleware functions that can be used to modify the request and response objects before and after the controller. These functions are used to handle tasks such as:
-    - Data Validation: performed by **\*.validator.js**
 
-</br>
 
-- **config/**: This folder contains configuration files for the application such as environment variables, database connection strings, etc. This folder is usually separated from other code to keep configuration separate from application code and to make it easy to change configuration settings without modifying the code.
 
 
 ## Exposed APIs
 | Method   | URL                     |         Body        | Description                              |
 | -------- | ------------------------|---------------- | ---------------------------------------- |
-| `POST`   | `/configuration/`        |         `{ name: String, price: Number}`            | Create a new configuration.                       |
+| `POST`   | `/register`        |         `{ name: String, username: String, password: String}`            | Create a new User                       |
+| `POST`   | `/login`        |         `{ name: String, username: String, password: String}`            | Get the bearer token **to includes in all the next requests**.                       |
+| `POST`   | `/configuration/`        |         `{ name:String, host:String, port:Number, database_url:String, logging_level:String}` all these keys are mandatory, you can also add key based on the type of service            | Create a new configuration.                       |
 | `GET`    | `/configuration/`         |                    | Retrieve all configurations.                      |
 | `GET`    | `/configuration/:id`       |                   | Retrieve configuration with the specified id.                       |
-| `PATCH`  | `/configuration/:id`        |           `{ name: String, price: Number}`       | Update data for configuration with a given id.                 |
+| `PATCH`  | `/configuration/:id`        |           If the key is already present it will be overwrite, otherwise it is created       | Update data for configuration with a given id.                 |
 | `DELETE`   | `/configuration/:id`       |          | Delete configuration with a certain id.                 |
 
 
